@@ -1,0 +1,49 @@
+services:
+  # uncomment this section and comment out the mysql section to use postgres instead of mysql
+  #postgres:
+    #restart: unless-stopped
+    #image: postgres:14
+    #hostname: postgres
+    #volumes: 
+    #  - semaphore-postgres:/var/lib/postgresql/data
+    #environment:
+    #  POSTGRES_USER: semaphore
+    #  POSTGRES_PASSWORD: semaphore
+    #  POSTGRES_DB: semaphore
+  # if you wish to use postgres, comment the mysql service section below 
+  mysql:
+    restart: unless-stopped
+    image: mysql:8.0
+    hostname: mysql
+    volumes:
+      - ${DOCKER_VOLUME_PATH}/${APP_NAME}/mysql:/var/lib/mysql
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  semaphore:
+    restart: unless-stopped
+    ports:
+      - 3004:3000
+    image: semaphoreui/semaphore:latest
+    environment:
+      SEMAPHORE_DB_USER: ${MYSQL_USER}
+      SEMAPHORE_DB_PASS: ${MYSQL_PASSWORD}
+      SEMAPHORE_DB_HOST: mysql # for postgres, change to: postgres
+      SEMAPHORE_DB_PORT: 3306 # change to 5432 for postgres
+      SEMAPHORE_DB_DIALECT: mysql # for postgres, change to: postgres
+      SEMAPHORE_DB: ${MYSQL_DATABASE}
+      SEMAPHORE_PLAYBOOK_PATH: /tmp/semaphore/
+      SEMAPHORE_ADMIN_PASSWORD: ${SEMAPHORE_ADMIN_PASSWORD}
+      SEMAPHORE_ADMIN_NAME: ${SEMAPHORE_ADMIN_NAME}
+      SEMAPHORE_ADMIN_EMAIL: ${SEMAPHORE_ADMIN_EMAIL}
+      SEMAPHORE_ADMIN: ${SEMAPHORE_ADMIN}
+      SEMAPHORE_ACCESS_KEY_ENCRYPTION: ${SEMAPHORE_ACCESS_KEY_ENCRYPTION}
+      TZ: UTC
+    volumes:
+      - ${DOCKER_VOLUME_PATH}/${APP_NAME}/data:/var/lib/semaphore
+      - ${DOCKER_VOLUME_PATH}/${APP_NAME}/config:/etc/semaphore
+      - ${DOCKER_VOLUME_PATH}/${APP_NAME}/tmp:/tmp/semaphore
+    depends_on:
+      - mysql # for postgres, change to: postgres
