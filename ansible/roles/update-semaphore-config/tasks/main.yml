@@ -1,0 +1,13 @@
+---
+- name: Copy new config
+  ansible.builtin.template:
+    src: "templates/config/semaphore/config.json"
+    dest: "{{ config_path }}/config.json"
+    mode: "0644"
+    owner: 1001
+    group: root
+    backup: true
+
+- name: Restart container to apply new config
+  ansible.builtin.command:
+    cmd: docker restart {{ container_name }}

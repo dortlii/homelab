@@ -1,0 +1,24 @@
+- name: install required packages
+  tags: php,curl,mysql
+  apt:
+    name:
+     - "{{ req_packages }}"
+  # with-items: "{{ req_packages }}"
+
+- name: Download and extract nextcloud binaries
+  tags: nextcloud,binaries
+  unarchive:
+    src: "{{ nextcloud_dl_url }}"
+    dest: "{{ nextcloud_path }}"
+    remote_src: yes
+    group: "{{ apache_user }}"
+    owner: "{{ apache_user }}"
+    mode: "750"
+
+###### MYSQL_SECURE_INSTALLATION ######
+
+#- name: create nextcloud database
+#  command: "sudo mysql < {{ user_home }}/roles/nextcloud/files/create_nextcloud_db.sql"
+
+- name: enable php extensions
+  command: "sudo phpenmod bcmath gmp imagick intl"

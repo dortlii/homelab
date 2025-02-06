@@ -1,0 +1,10 @@
+---
+- name: Update ddclient config
+  hosts: ddclient
+
+  pre_tasks:
+    - ansible.builtin.include_vars: ddclient_vars.yaml
+    - ansible.builtin.include_vars: ddclient_creds.yaml
+
+  roles:
+   - update-ddclient-config

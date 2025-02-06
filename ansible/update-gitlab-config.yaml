@@ -1,0 +1,12 @@
+---
+- name: Update gitlab config
+  hosts: gitlab
+
+  pre_tasks:
+    - ansible.builtin.include_vars: gitlab_vars.yaml
+    - ansible.builtin.include_vars: gitlab_creds.yaml
+
+  roles:
+  - update-gitlab-config
+
+  become: yes

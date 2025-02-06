@@ -1,0 +1,16 @@
+---
+- name: Backup existing config
+  ansible.builtin.copy:
+    src: "{{ gitlab_config_path }}/gitlab.rb"
+    dest: "{{ gitlab_backup_path }}/gitlab.{{ ansible_date_time.date }}.rb"
+    mode: 0600
+    remote_src: yes
+
+- name: Copy new config
+  ansible.builtin.template:
+    src: "{{ playbook_dir }}/templates/config/gitlab.rb"
+    dest: "{{ gitlab_config_path }}/gitlab.rb"
+    mode: 0600
+
+- name: Restart gitlab
+  ansible.builtin.shell: "gitlab-ctl reconfigure"

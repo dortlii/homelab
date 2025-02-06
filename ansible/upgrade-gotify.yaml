@@ -1,0 +1,13 @@
+---
+- name: Upgrade gotify server
+  hosts: gotify
+
+  pre_tasks:
+    - name: Include gotify vars
+      ansible.builtin.include_vars:
+        file: gotify_vars.yaml
+
+  roles:
+    - upgrade-gotify
+
+  become: true

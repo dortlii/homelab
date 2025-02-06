@@ -1,0 +1,19 @@
+---
+- name: Update servers (apt)
+  hosts: autoupdate
+  ignore_unreachable: true
+  become: true
+  become_user: root
+  roles:
+    - apt-update
+
+- name: Update k3s servers
+  hosts: k3s-master
+  ignore_unreachable: true
+  become: true
+  become_user: root
+  serial: 1
+  tasks:
+    - name: Apply updates and reboot if necessary
+      ansible.builtin.include_role:
+        name: apt-update

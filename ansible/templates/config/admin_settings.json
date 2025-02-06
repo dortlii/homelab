@@ -1,0 +1,29 @@
+{
+	"admin": {
+		"disabled": false,
+		"listen": "{{ caddy_admin_listen_address }}",
+		"identity": {
+			"issuers": [
+				{
+					"module": "acme",
+					"email": "{{ acme_email }}",
+					"challenges": {
+						"http": {
+							"disabled": true
+						},
+						"tls-alpn": {
+							"disabled": true
+						},
+						"dns": {
+							"provider": {
+								"name": "cloudflare",
+								"api_token": "{{ CF_API_TOKEN }}"
+							},
+							"resolvers": ["{{ acme_dns_resovlers }}"]
+						}
+					}
+				}
+			]
+		}
+	}
+}

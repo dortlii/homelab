@@ -1,0 +1,8 @@
+---
+- name: Post install steps for k3s cluster
+  hosts: k3s-master
+
+  roles:
+    - post-install-k3s
+
+  become: yes

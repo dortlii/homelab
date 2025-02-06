@@ -1,0 +1,13 @@
+---
+- name: Set admin settings
+  ansible.builtin.uri:
+    url: localhost:2019
+    method: POST
+    body: "{{ lookup('ansible.builtin.template', 'templates/config/admin_settings.json') }}"
+    body_format: json
+    return_content: true
+  register: admin_access_response
+
+- name: Display response
+  ansible.builtin.debug:
+    var: admin_access_response

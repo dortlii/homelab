@@ -1,0 +1,8 @@
+---
+- name: Install docker ce
+  hosts: docker
+
+  roles:
+    - install-docker
+
+  become: yes

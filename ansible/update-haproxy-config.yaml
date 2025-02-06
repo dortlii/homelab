@@ -1,0 +1,8 @@
+---
+- name: Update haproxy config
+  hosts: k3s-lb
+
+  roles:
+    - update-haproxy-config
+
+  become: yes

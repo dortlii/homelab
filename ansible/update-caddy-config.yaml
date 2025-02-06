@@ -1,0 +1,14 @@
+---
+- name: Update caddy config
+  hosts: caddy
+
+  pre_tasks:
+    - name: Add caddy vars
+      ansible.builtin.include_vars: caddy_vars.yaml
+    - name: Add caddy creds
+      ansible.builtin.include_vars: caddy_creds.yaml
+
+  roles:
+    - update-caddy-config
+
+  become: true

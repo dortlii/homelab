@@ -1,0 +1,16 @@
+---
+- name: Stop gotify service
+  ansible.builtin.service:
+    name: gotify
+    state: stopped
+
+- name: Download and unpack new release
+  ansible.builtin.unarchive:
+    src: https://github.com/gotify/server/releases/download/{{ gotify_version }}/gotify-linux-amd64.zip
+    dest: "{{ gotify_opt }}"
+    remote_src: true
+
+- name: Start gotify service
+  ansible.builtin.service:
+    name: gotify
+    state: started

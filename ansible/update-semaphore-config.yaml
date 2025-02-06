@@ -1,0 +1,14 @@
+---
+- name: Update semaphore config
+  hosts: docker
+
+  pre_tasks:
+    - name: Include semaphore vars
+      ansible.builtin.include_vars: semaphore/vars.yaml
+    - name: Include semaphore vault creds
+      ansible.builtin.include_vars: semaphore/vault.yaml
+
+  roles:
+    - update-semaphore-config
+
+  become: true
