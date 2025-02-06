@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitlab-runner
+  namespace: argocd
+spec:
+  project: gitlab-runner
+  source:
+    chart: gitlab-runner
+    repoURL: https://charts.gitlab.io
+    targetRevision: 0.73.3
+    helm:
+      releaseName: gitlab-runner
+      valuesObject:
+        replicas: 1
+        revisionHistoryLimit: 3
+        gitlabUrl: https://git.server.dortlii.dev
+        rbac:
+          create: true
+        runners:
+          config: |
+            [[runners]]
+              [runners.kubernetes]
+                namespace = "{{.Release.Namespace}}"
+                image = "alpine"
+          secret: gitlab-runner-secret
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: 200m
+            ephemeral-storage: 512Mi
+          requests:
+            memory: 128Mi
+            cpu: 100m
+            ephemeral-storage: 256Mi
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: gitlab-runner
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        argocd.argoproj.io/managed-by: argocd
+    syncOptions:
+      - CreateNamespace=true

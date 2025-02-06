@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: portainer
+  namespace: argocd
+spec:
+  project: portainer
+  source:
+    path: argocd/files/portainer
+    repoURL: https://github.com/dortlii/homelab
+    targetRevision: main
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: portainer
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        argocd.argoproj.io/managed-by: argocd
+    syncOptions:
+    - CreateNamespace=true

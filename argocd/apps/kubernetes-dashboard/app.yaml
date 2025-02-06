@@ -1,0 +1,61 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubernetes-dashboard
+  namespace: argocd
+spec:
+  destination:
+    namespace: kubernetes-dashboard
+    server: https://kubernetes.default.svc
+  project: kubernetes-dashboard
+  sources:
+    - repoURL: https://github.com/dortlii/homelab
+      path: argocd/files/kubernetes-dashboard
+      targetRevision: main
+    - repoURL: https://kubernetes.github.io/dashboard/
+      targetRevision: 7.5.0
+      chart: kubernetes-dashboard
+      helm:
+        releaseName: kubernetes-dashboard
+        valuesObject:
+          kong:
+            enabled: true
+            proxy:
+              type: ClusterIP
+              http:
+                enabled: true
+    - repoURL: 'https://git.server.dortlii.dev/api/v4/projects/6/packages/helm/stable'
+      targetRevision: 0.0.4
+      chart: traefik-ingress
+      helm:
+        releaseName: kubernetes-dashboard-ingress
+        valuesObject:
+          global:
+            namespace: kubernetes-dashboard
+          cert:
+            enabled: true
+            name: kubernetes-dashboard-cert
+            secretName: kubernetes-dashboard-tls-secret
+            dnsNames: kubernetes-dashboard.apps.dortlii.dev
+          issuerRef:
+            name: acme-issuer
+            kind: ClusterIssuer
+          ingress:
+            enabled: true
+            name: kubernetes-dashboard-ingress
+            path: /
+            pathType: Prefix
+            backend:
+              port: 80
+              service: kubernetes-dashboard-kong-proxy
+            serversTransports:
+              ignorecert:
+                insecureSkipVerify: false
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+

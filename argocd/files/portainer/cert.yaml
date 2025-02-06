@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: portainer-cert
+  namespace: portainer
+spec:
+  dnsNames:
+  - portainer.apps.dortlii.dev
+  issuerRef:
+    kind: ClusterIssuer
+    name: acme-issuer
+  secretName: portainer-tls-secret

@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: portainer-ingress
+  namespace: portainer
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - portainer.apps.dortlii.dev
+      secretName: portainer-tls-secret
+  rules:
+    - host: portainer.apps.dortlii.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: portainer
+                port:
+                  number: 9000

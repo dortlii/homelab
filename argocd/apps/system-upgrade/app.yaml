@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: system-upgrade
+  namespace: argocd
+spec:
+  project: system-upgrade
+  source:
+    path: argocd/files/system-upgrade
+    repoURL: https://github.com/dortlii/homelab
+    targetRevision: main
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: system-upgrade
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        argocd.argoproj.io/managed-by: argocd
+    syncOptions:
+    - CreateNamespace=true
