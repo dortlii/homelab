@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-Most of the more sensitive data are stored in `auto.tfvars` files. 
+Most of the more sensitive data are stored in `auto.tfvars` files.
 These files are not included in the repository. You will need to create them yourself.
 Here are the templates for the `auto.tfvars` files:
 
