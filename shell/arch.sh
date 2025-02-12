@@ -102,6 +102,8 @@ YAY_TOOLS=(
   "jetbrains-toolbox"
   "podman-desktop-bin"
   "podman"
+  "zip"
+  "edid-decode"
 )
 
 beauty_output
