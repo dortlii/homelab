@@ -1,0 +1,3 @@
+[submodule "homelab-files"]
+	path = homelab-files
+	url = git@git.server.dortlii.dev:intra/homelab-files.git
