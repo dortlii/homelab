@@ -104,6 +104,7 @@ YAY_TOOLS=(
   "podman"
   "zip"
   "edid-decode"
+  "zed"
 )
 
 beauty_output
