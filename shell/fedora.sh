@@ -43,6 +43,7 @@ DNF_TOOLS=(
   "polybar"
   "playerctl"
   "timeshift"
+  "rofi"
 )
 
 beauty_output
@@ -125,22 +126,6 @@ if command -v tlp >/dev/null; then
 
   sudo tlp start
   sudo systemctl enable tlp.service
-fi
-
-#-----------------------------------------
-# install albert
-# docs: https://albertlauncher.github.io/setup/
-#-----------------------------------------
-if ! command -v albert >/dev/null; then
-  INSTALLED_FEDORA_VERSION="40"
-  beauty_output
-  echo "Installing albert ..."
-
-  sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/home:manuelschneid3r/Fedora_$INSTALLED_FEDORA_VERSION/home:manuelschneid3r.repo
-  sudo dnf install albert -y
-else
-  beauty_output
-  echo "albert already installed - skipping ..."
 fi
 
 #-----------------------------------------
