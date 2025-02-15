@@ -118,6 +118,31 @@ else
 fi
 
 #-----------------------------------------
+# install google cloud cli
+#-----------------------------------------
+if ! command -v gcloud >/dev/null; then
+  beauty_output
+  echo "Installing google cloud cli ..."
+
+  sudo tee -a /etc/yum.repos.d/google-cloud-sdk.repo << EOM
+[google-cloud-cli]
+name=Google Cloud CLI
+baseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el9-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=0
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOM
+
+  sudo dnf install libxcrypt-compat.x86_64 -y
+  sudo dnf install google-cloud-cli google-cloud-sdk-gke-gcloud-auth-plugin -y
+
+else
+  beauty_output
+  echo "gcloud already installed - skipping ..."
+fi
+
+#-----------------------------------------
 # activate and enable tlp
 #-----------------------------------------
 if command -v tlp >/dev/null; then
