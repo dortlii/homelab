@@ -9,8 +9,7 @@ terraform {
 
 locals {
   node = "hades"
-  iso_datastore = "local-lvm"
-  cid_datastore = "local-lvm"
+  iso_datastore = "local"
 }
 
 variable "proxmox_api_url" {
@@ -28,6 +27,6 @@ provider "proxmox" {
   insecure = true
   ssh {
     agent = true
-    username = "terraform-prov"
+    username = "root"
   }
 }
