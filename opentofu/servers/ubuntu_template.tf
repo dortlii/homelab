@@ -11,8 +11,9 @@ resource "proxmox_virtual_environment_download_file" "ubuntu_cloud_image" {
 }
 
 resource "proxmox_virtual_environment_vm" "ubuntu_template" {
-  name      = "ubuntu-template"
+  name      = "ubuntu-noble-template"
   node_name = local.node
+  vm_id = 806
 
   template = true
 
@@ -33,13 +34,13 @@ resource "proxmox_virtual_environment_vm" "ubuntu_template" {
   }
 
   efi_disk {
-    datastore_id = "local"
+    datastore_id = "local-lvm"
     file_format  = "raw"
     type         = "4m"
   }
 
   disk {
-    datastore_id = "local"
+    datastore_id = "local-lvm"
     file_id      = proxmox_virtual_environment_download_file.ubuntu_cloud_image.id
     interface    = "virtio0"
     iothread     = true
