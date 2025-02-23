@@ -1,37 +1,16 @@
-data "local_file" "ssh_public_key" {
-  filename = "../../homelab-files/opentofu/ssh.pub"
-}
+resource "proxmox_virtual_environment_file" "metadata_cloud_config" {
+  content_type = "snippets"
+  datastore_id = "local"
+  node_name    = "pve"
 
-variable "vm_config" {
-  type = map(object({
-    id   = number
-    name = string
-    ip   = string
-  }))
-}
+  source_raw {
+    data = <<-EOF
+    #cloud-config
+    local-hostname: ${var.hostname}
+    EOF
 
-variable "local_username" {
-  type = string
-}
-
-variable "gateway_ip" {
-  type = string
-}
-
-variable "nameserver_ip" {
-    type = string
-}
-
-locals {
-  ubuntu_img_url = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
-}
-
-resource "proxmox_virtual_environment_download_file" "ubuntu_cloud_image" {
-  content_type = "iso"
-  datastore_id = local.iso_datastore
-  node_name    = local.node
-
-  url = local.ubuntu_img_url
+    file_name = "metadata-cloud-config.yaml"
+  }
 }
 
 resource "proxmox_virtual_environment_vm" "jumpbox" {
@@ -64,11 +43,7 @@ resource "proxmox_virtual_environment_vm" "jumpbox" {
   // cloud-init configuration
   initialization {
     dns {
-      nameservers = [var.nameserver_ip]
-    }
-    user_account {
-      keys = [trimspace(data.local_file.ssh_public_key.content)]
-      username = var.local_username
+      servers = [var.nameserver_ip]
     }
     ip_config {
       ipv4 {
@@ -76,6 +51,8 @@ resource "proxmox_virtual_environment_vm" "jumpbox" {
         gateway = var.gateway_ip
       }
     }
+    user_data_file_id = proxmox_virtual_environment_file.user_data_cloud_config.id
+    meta_data_file_id  = proxmox_virtual_environment_file.metadata_cloud_config.id
   }
 
   // cloud-init disk
@@ -97,6 +74,7 @@ resource "proxmox_virtual_environment_vm" "jumpbox" {
 
   // network configuration
   network_device {
+    firewall = false
     bridge = var.vm_config["vm_780"].bridge
   }
 }
