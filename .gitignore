@@ -43,3 +43,6 @@ override.tf.json
 .terraformrc
 terraform.rc
 .vscode/settings.json
+
+# JetBrains IDEs
+.idea/
