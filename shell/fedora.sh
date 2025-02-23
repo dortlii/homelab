@@ -43,6 +43,7 @@ DNF_TOOLS=(
   "polybar"
   "playerctl"
   "timeshift"
+  "rofi"
 )
 
 beauty_output
@@ -117,6 +118,31 @@ else
 fi
 
 #-----------------------------------------
+# install google cloud cli
+#-----------------------------------------
+if ! command -v gcloud >/dev/null; then
+  beauty_output
+  echo "Installing google cloud cli ..."
+
+  sudo tee -a /etc/yum.repos.d/google-cloud-sdk.repo << EOM
+[google-cloud-cli]
+name=Google Cloud CLI
+baseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el9-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=0
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOM
+
+  sudo dnf install libxcrypt-compat.x86_64 -y
+  sudo dnf install google-cloud-cli google-cloud-sdk-gke-gcloud-auth-plugin -y
+
+else
+  beauty_output
+  echo "gcloud already installed - skipping ..."
+fi
+
+#-----------------------------------------
 # activate and enable tlp
 #-----------------------------------------
 if command -v tlp >/dev/null; then
@@ -125,22 +151,6 @@ if command -v tlp >/dev/null; then
 
   sudo tlp start
   sudo systemctl enable tlp.service
-fi
-
-#-----------------------------------------
-# install albert
-# docs: https://albertlauncher.github.io/setup/
-#-----------------------------------------
-if ! command -v albert >/dev/null; then
-  INSTALLED_FEDORA_VERSION="40"
-  beauty_output
-  echo "Installing albert ..."
-
-  sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/home:manuelschneid3r/Fedora_$INSTALLED_FEDORA_VERSION/home:manuelschneid3r.repo
-  sudo dnf install albert -y
-else
-  beauty_output
-  echo "albert already installed - skipping ..."
 fi
 
 #-----------------------------------------

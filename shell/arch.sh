@@ -105,6 +105,7 @@ YAY_TOOLS=(
   "zip"
   "edid-decode"
   "zed"
+  "rofi"
 )
 
 beauty_output
