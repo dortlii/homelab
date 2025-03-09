@@ -10,10 +10,6 @@ variable "nameserver_ip" {
   type = string
 }
 
-variable "hostname" {
-  type = string
-}
-
 variable "vm_config" {
   type = map(object({
     id   = number
@@ -32,7 +28,6 @@ resource "proxmox_virtual_environment_file" "user_data_cloud_config" {
   source_raw {
     data = <<-EOF
     #cloud-config
-    hostname: test-ubuntu
     users:
       - default
       - name: fabian

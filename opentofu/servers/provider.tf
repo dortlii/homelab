@@ -10,6 +10,7 @@ terraform {
 locals {
   node = "hades"
   iso_datastore = "local"
+  cid_datastore = "local"
 }
 
 variable "proxmox_api_url" {

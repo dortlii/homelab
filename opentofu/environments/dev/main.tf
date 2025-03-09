@@ -13,6 +13,9 @@ module "global" {
 
 module "vm" {
   source = "../../modules/vm"
+  providers = {
+    proxmox = module.global.proxmox
+  }
 
   ssh_public_key_path = "../../../homelab-files/opentofu/ssh.pub"
 
