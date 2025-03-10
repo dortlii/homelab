@@ -1,0 +1,20 @@
+apiVersion: v1
+items:
+  - apiVersion: argoproj.io/v1alpha1
+    kind: AppProject
+    metadata:
+      name: traefik
+      namespace: argocd
+    spec:
+      clusterResourceWhitelist:
+        - group: "*"
+          kind: "*"
+      destinations:
+        - namespace: "*"
+          server: "*"
+      sourceRepos:
+        - "*"
+    status: {}
+kind: List
+metadata:
+  resourceVersion: ""
