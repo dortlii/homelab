@@ -1,18 +1,3 @@
-resource "proxmox_virtual_environment_file" "metadata_cloud_config" {
-  content_type = "snippets"
-  datastore_id = "local"
-  node_name    = "pve"
-
-  source_raw {
-    data = <<-EOF
-    #cloud-config
-    local-hostname: ${var.hostname}
-    EOF
-
-    file_name = "metadata-cloud-config.yaml"
-  }
-}
-
 resource "proxmox_virtual_environment_vm" "jumpbox" {
   vm_id      = var.vm_config["vm_780"].id
   name      = "jumpbox"
@@ -23,6 +8,10 @@ resource "proxmox_virtual_environment_vm" "jumpbox" {
     "jumpbox",
     "kubernetes",
   ]
+
+  clone {
+    vm_id = proxmox_virtual_environment_vm.ubuntu_template.id
+  }
 
   // resource configuration
   cpu {
@@ -52,17 +41,6 @@ resource "proxmox_virtual_environment_vm" "jumpbox" {
       }
     }
     user_data_file_id = proxmox_virtual_environment_file.user_data_cloud_config.id
-    meta_data_file_id  = proxmox_virtual_environment_file.metadata_cloud_config.id
-  }
-
-  // cloud-init disk
-  disk {
-    datastore_id = local.cid_datastore
-    file_id      = proxmox_virtual_environment_download_file.ubuntu_cloud_image.id
-    interface    = "virtio0"
-    iothread     = true
-    discard      = "on"
-    size         = 20
   }
 
   // os disk
