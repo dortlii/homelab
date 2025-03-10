@@ -2,22 +2,20 @@ terraform {
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
-      configuration_aliases = [
-        proxmox.provider,
-      ]
+      version = "0.73.0"
     }
   }
 }
 
 resource "proxmox_virtual_environment_vm" "vm" {
-  name        = var.name
-  node_name   = var.target_node
-  vm_id       = var.id
+  name      = var.name
+  node_name = var.target_node
+  vm_id     = var.id
 
-  template    = var.template
+  template = var.template
 
   clone {
-    vm_id     = var.clone
+    vm_id = var.clone
   }
 
   machine     = var.machine
@@ -25,13 +23,13 @@ resource "proxmox_virtual_environment_vm" "vm" {
   description = var.description
 
   agent {
-    enabled   = var.agent_enabled
+    enabled = var.agent_enabled
   }
 
   cpu {
-    cores     = var.cpu_cores
-    sockets   = var.cpu_sockets
-    type      = var.cpu_type
+    cores   = var.cpu_cores
+    sockets = var.cpu_sockets
+    type    = var.cpu_type
   }
 
   memory {
@@ -54,9 +52,9 @@ resource "proxmox_virtual_environment_vm" "vm" {
   }
 
   disk {
-    interface     = "virtio0"
-    size          = var.os_disk_size
-    datastore_id  = var.datastore
+    interface    = "virtio0"
+    size         = var.os_disk_size
+    datastore_id = var.datastore
   }
 
   initialization {
