@@ -30,5 +30,12 @@ vm_101_ip   = "10.0.0.2"
 ## Usage
 
 ```bash
+# Initialize the terraform
+tofu init
 
+# Plan the terraform
+tofu plan -var-file="../creds.auto.tfvars" -var-file="../../../homelab-files/opentofu/vm-configs.auto.tfvars"
+
+# Apply the terraform
+tofu apply -var-file="../creds.auto.tfvars" -var-file="../../../homelab-files/opentofu/vm-configs.auto.tfvars"
 ```
