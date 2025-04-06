@@ -1,5 +1,12 @@
 terraform {
-  backend "local" {} # Or use S3, GitLab, etc.
+  backend "local" {}
+  # Or use S3, GitLab, etc.
+  required_providers {
+    proxmox = {
+      source  = "bpg/proxmox"
+      version = "0.74.1"
+    }
+  }
 }
 
 provider "proxmox" {
@@ -13,23 +20,28 @@ provider "proxmox" {
   }
 }
 
-terraform {
-  required_providers {
-    proxmox = {
-      source  = "bpg/proxmox"
-      version = "0.73.0"
-    }
-  }
+locals {
+  target_node = "hades"
+}
+
+module "cloud_config" {
+  source = "../../modules/cloud_config"
+
+  ssh_public_key_path = "../../../homelab-files/opentofu/ssh.pub"
+  datastore        = "local"
+  target_node = local.target_node
+}
+
+module "cloud_image" {
+  source = "../../modules/cloud_image"
+
+  datastore = "local"
+  image_url = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
+  target_node = local.target_node
 }
 
 module "vm" {
   source = "../../modules/vm"
-
-  proxmox_api_url = var.proxmox_api_url
-  proxmox_password = var.proxmox_password
-  proxmox_api_token = var.proxmox_api_token
-
-  ssh_public_key_path = "../../../homelab-files/opentofu/ssh.pub"
 
   for_each = { for idx, vm in var.vms : vm.name => vm }
 
@@ -47,5 +59,7 @@ module "vm" {
   address        = each.value.ip_address
   gateway        = each.value.gateway
   nameserver     = each.value.nameserver
-  network_bridge  = each.value.network_bridge
+  network_bridge = each.value.network_bridge
+  cloud_image    = module.cloud_image.image_url_id
+  user_data_cloud_config_id = module.cloud_config.user_data_cloud_config
 }

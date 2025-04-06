@@ -2,12 +2,30 @@ terraform {
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
-      version = "0.73.0"
+      version = "0.74.1"
     }
   }
 }
 
 resource "proxmox_virtual_environment_vm" "vm" {
+
+  lifecycle {
+    ignore_changes = [
+      # Ignore changes to the VM ID
+      vm_id,
+      # Ignore changes to the template
+      template,
+      # Ignore changes to the clone
+      clone,
+      # Ignore changes to the machine type
+      machine,
+      # Ignore changes to the bios type
+      bios,
+      # Ignore changes to the description
+      description,
+    ]
+  }
+
   name      = var.name
   node_name = var.target_node
   vm_id     = var.id
@@ -44,7 +62,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
 
   disk {
     datastore_id = "local-lvm"
-    file_id      = proxmox_virtual_environment_download_file.ubuntu_cloud_image.id
+    file_id      = var.cloud_image
     interface    = "virtio0"
     iothread     = true
     discard      = "on"
@@ -69,7 +87,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
       servers = [var.nameserver]
     }
 
-    user_data_file_id = proxmox_virtual_environment_file.user_data_cloud_config.id
+    user_data_file_id = var.user_data_cloud_config_id
   }
 
   network_device {

@@ -1,27 +1,3 @@
-# global provider variables
-variable "proxmox_api_url" {
-  description = "The URL of the Proxmox API"
-  type        = string
-}
-
-variable "proxmox_username" {
-  description = "The username for Proxmox"
-  type        = string
-  default     = "root"
-}
-
-variable "proxmox_password" {
-  description = "The password for Proxmox"
-  type        = string
-  sensitive   = true
-}
-
-variable "proxmox_api_token" {
-  description = "The API token for Proxmox"
-  type        = string
-  sensitive   = true
-}
-
 # VM module variables
 variable "name" {
   description = "The name of the VM"
@@ -129,7 +105,12 @@ variable "nameserver" {
   type        = string
 }
 
-variable "ssh_public_key_path" {
-  description = "The SSH public key to use for cloud-init"
-  type        = string
+variable "cloud_image" {
+    description = "The cloud image to use"
+    type        = string
+}
+
+variable "user_data_cloud_config_id" {
+    description = "The ID of the cloud-init user data file"
+    type        = string
 }
