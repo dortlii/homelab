@@ -1,23 +1,19 @@
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "bpg/proxmox"
+      version = "0.74.1"
+    }
+  }
+}
+
 data "local_file" "ssh_public_key" {
   filename = var.ssh_public_key_path
 }
 
-locals {
-  ubuntu_img_url = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
-  datastore = "local"
-}
-
-resource "proxmox_virtual_environment_download_file" "ubuntu_cloud_image" {
-  content_type = "iso"
-  datastore_id = local.datastore
-  node_name    = var.target_node
-
-  url = local.ubuntu_img_url
-}
-
 resource "proxmox_virtual_environment_file" "user_data_cloud_config" {
   content_type = "snippets"
-  datastore_id = local.datastore
+  datastore_id = var.datastore
   node_name    = var.target_node
 
   source_raw {
