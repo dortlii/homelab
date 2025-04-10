@@ -38,3 +38,24 @@ variable "vms" {
     cloud_image    = number
   }))
 }
+
+variable "kubernetes_vms" {
+  description = "List of kubernetes VMs to create"
+  type = list(object({
+    id             = number
+    name           = string
+    description    = string
+    target_node    = string
+    template       = bool
+    memory         = number
+    cpu_cores      = number
+    cpu_type       = string
+    os_disk_size   = string
+    datastore      = string
+    ip_address     = string
+    gateway        = string
+    nameserver     = string
+    network_bridge = string
+    vlan           = number
+  }))
+}
