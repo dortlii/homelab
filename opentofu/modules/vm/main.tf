@@ -11,18 +11,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
 
   lifecycle {
     ignore_changes = [
-      # Ignore changes to the VM ID
-      vm_id,
-      # Ignore changes to the template
-      template,
-      # Ignore changes to the clone
-      clone,
-      # Ignore changes to the machine type
-      machine,
-      # Ignore changes to the bios type
-      bios,
-      # Ignore changes to the description
-      description,
+      started,
     ]
   }
 
