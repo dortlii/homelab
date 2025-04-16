@@ -36,6 +36,7 @@ variable "vms" {
     nameserver     = string
     network_bridge = string
     cloud_image    = number
+    vlan           = number
   }))
 }
 

@@ -60,6 +60,7 @@ module "vm" {
   gateway                   = each.value.gateway
   nameserver                = each.value.nameserver
   network_bridge            = each.value.network_bridge
+  vlan_id                   = each.value.vlan
   cloud_image               = module.cloud_image.image_url_id
   user_data_cloud_config_id = module.cloud_config.user_data_cloud_config
 }
