@@ -114,3 +114,9 @@ variable "user_data_cloud_config_id" {
     description = "The ID of the cloud-init user data file"
     type        = string
 }
+
+variable "vlan_id" {
+  description = "The VLAN ID to use"
+  type        = number
+  default     = 0
+}
