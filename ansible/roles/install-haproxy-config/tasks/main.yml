@@ -1,0 +1,21 @@
+---
+- name: Install HAProxy
+  ansible.builtin.apt:
+    name: haproxy
+    state: present
+    update_cache: true
+
+- name: Copy haproxy config
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../homelab-files/ansible/files/haproxy.cfg"
+    dest: "/etc/haproxy/haproxy.cfg"
+    mode: 0644
+    owner: root
+    group: root
+    backup: true
+
+- name: Restart haproxy
+  ansible.builtin.service:
+    name: haproxy
+    state: started
+    enabled: true
