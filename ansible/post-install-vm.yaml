@@ -1,0 +1,8 @@
+---
+- name: Post install after VM creation
+  hosts: new-vms
+
+  roles:
+    - post-install-vm
+
+  become: yes
