@@ -51,10 +51,10 @@ resource "proxmox_virtual_environment_vm" "vm" {
     interface    = "ide2"
   }
 
-  boot_order = ["ide2", "virtio0"]
+  boot_order = ["ide2", "virtio"]
 
   disk {
-    interface    = "virtio0"
+    interface    = "virtio"
     size         = var.os_disk_size
     datastore_id = var.datastore
   }

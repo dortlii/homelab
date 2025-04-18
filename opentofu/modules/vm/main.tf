@@ -52,14 +52,14 @@ resource "proxmox_virtual_environment_vm" "vm" {
   disk {
     datastore_id = "local-lvm"
     file_id      = var.cloud_image
-    interface    = "virtio0"
+    interface    = "virtio"
     iothread     = true
     discard      = "on"
     size         = 20
   }
 
   disk {
-    interface    = "virtio0"
+    interface    = "virtio"
     size         = var.os_disk_size
     datastore_id = var.datastore
   }
