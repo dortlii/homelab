@@ -62,7 +62,7 @@ YAY_TOOLS=(
   "kubent"
   "kubernetes"
   "yamllint"
-  "yq"
+  "go-yq"
   "gnupg"
   "go"
   "qemu"
