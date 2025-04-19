@@ -8,30 +8,13 @@ spec:
   source:
     chart: traefik
     repoURL: https://traefik.github.io/charts
-    targetRevision: 34.4.1
+    targetRevision: 35.0.1
     helm:
       releaseName: traefik
       valuesObject:
-        ingressClass:
-          enabled: true
-          isDefaultClass: true
-        ingressRoute:
-          dashboard:
-            enabled: false
-        logs:
-          general:
-            level: INFO
         persistence:
-          accessMode: ReadWriteOnce
           enabled: true
-          name: ssl-certs
-          path: /ssl-certs
           size: 1Gi
-        ports:
-          web: null
-          websecure:
-            tls:
-              enabled: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: traefik
