@@ -1,0 +1,12 @@
+---
+- name: Install NFS server package
+  ansible.builtin.apt:
+    name: nfs-kernel-server
+    state: present
+    update_cache: true
+
+- name: Ensure NFS service is enabled and started
+  ansible.builtin.service:
+    name: nfs-kernel-server
+    state: started
+    enabled: true

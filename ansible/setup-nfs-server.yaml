@@ -1,0 +1,9 @@
+---
+- name: Setup a simple NFS server
+  hosts: nfs-server
+
+  roles:
+    - install-nfs-server
+  #    - apply-nfs-config
+
+  become: true
