@@ -2,8 +2,11 @@
 - name: Setup a simple NFS server
   hosts: nfs-server
 
+  vars:
+    nfs_export_path: /opt/nfs
+
   roles:
     - install-nfs-server
-  #    - apply-nfs-config
+    - apply-nfs-config
 
   become: true

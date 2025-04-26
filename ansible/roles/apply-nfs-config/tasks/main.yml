@@ -1,19 +1,22 @@
 ---
-- name: Create NFS export directory
+- name: Create NFS export directories
   ansible.builtin.file:
-    path: "{{ nfs_export_path }}"
+    path: "{{ item }}"
     state: directory
     owner: nobody
     group: nogroup
     mode: "0777"
+  loop:
+    - "{{ nfs_export_path }}/k8s-prd-1"
 
 - name: Deploy NFS exports config from template
   ansible.builtin.template:
     src: "{{ playbook_dir }}/../homelab-files/ansible/files/nfs.exports"
-    dest: /etc/exports.d/nfs.exports
+    dest: /etc/exports
     owner: root
     group: root
     mode: "0644"
 
 - name: Apply export configuration
-  ansible.builtin.command: exportfs -ra
+  ansible.builtin.command:
+    cmd: exportfs -ra
