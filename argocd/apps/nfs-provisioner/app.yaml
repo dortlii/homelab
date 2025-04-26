@@ -11,11 +11,14 @@ spec:
       targetRevision: 4.0.18
       helm:
         releaseName: nfs-subdir-external-provisioner
-        valuesFiles:
-        - $values/argocd/files/nfs/values.yaml
-    - repoURL: git@git.server.dortlii.dev:intra/homelab-files.git
-      targetRevision: main
-      ref: values
+        valuesObject:
+          nfs:
+            server: nfs-prd-1.k8s.dortlii.dev
+            path: /opt/nfs/k8s-prd-1
+          storageClass:
+            name: nfs
+            defaultClass: true
+            accessModes: ReadWriteMany
   destination:
     server: "https://kubernetes.default.svc"
     namespace: nfs-provisioner
