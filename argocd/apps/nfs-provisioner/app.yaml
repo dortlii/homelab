@@ -10,9 +10,9 @@ spec:
       chart: nfs-subdir-external-provisioner
       targetRevision: 4.0.18
       helm:
-        valuesFiles:
-          - $values/argocd/files/nfs/values.yaml
         releaseName: nfs-subdir-external-provisioner
+        valuesFiles:
+        - $values/argocd/files/nfs/values.yaml
     - repoURL: git@git.server.dortlii.dev:intra/homelab-files.git
       targetRevision: main
       ref: values
