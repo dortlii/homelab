@@ -4,12 +4,39 @@ kind: Namespace
 metadata:
   name: argocd
 ---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: argocd-argocd-application-controller
+subjects:
+- kind: ServiceAccount
+  name: argocd-argocd-application-controller
+  namespace: argocd
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: argocd-argocd-server
+subjects:
+- kind: ServiceAccount
+  name: argocd-argocd-server
+  namespace: argocd
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+---
 apiVersion: argoproj.io/v1beta1
 kind: ArgoCD
 metadata:
   name: argocd
   namespace: argocd
 spec:
+  sourceNamespaces: []
   controller:
     resources:
       limits:
