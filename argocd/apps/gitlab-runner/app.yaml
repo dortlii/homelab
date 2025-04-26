@@ -8,7 +8,7 @@ spec:
   source:
     chart: gitlab-runner
     repoURL: https://charts.gitlab.io
-    targetRevision: 0.73.3
+    targetRevision: 0.76.0
     helm:
       releaseName: gitlab-runner
       valuesObject:
