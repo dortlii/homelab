@@ -5,20 +5,17 @@ metadata:
   namespace: argocd
 spec:
   project: nfs
-  source:
-    chart: nfs-subdir-external-provisioner
-    repoURL: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
-    targetRevision: 4.0.18
-    helm:
-      releaseName: nfs-subdir-external-provisioner
-      valuesObject:
-        nfs:
-          server: 172.16.10.109
-          path: /mnt/vmpool/k3s-storage
-        storageClass:
-          name: nfs
-          defaultClass: true
-          accessModes: ReadWriteMany
+  sources:
+    - repoURL: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
+      chart: nfs-subdir-external-provisioner
+      targetRevision: 4.0.18
+      helm:
+        valuesFiles:
+          - $values/argocd/files/nfs/values.yaml
+        releaseName: nfs-subdir-external-provisioner
+    - repoURL: https://git.server.dortlii.dev/intra/homelab-files.git
+      targetRevision: main
+      ref: values
   destination:
     server: "https://kubernetes.default.svc"
     namespace: nfs-provisioner
