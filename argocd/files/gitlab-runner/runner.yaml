@@ -5,5 +5,4 @@ metadata:
 spec:
   gitlabUrl: 'https://git.server.dortlii.dev'
   imagePullPolicy: Always
-  tags: 'k3s-runner'
   token: gitlab-runner-secret
