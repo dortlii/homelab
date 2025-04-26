@@ -6,11 +6,11 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/dortlii/homelab
+    repoURL: git@github.com:dortlii/homelab.git
     path: argocd
     directory:
       recurse: true
-      include: 'apps/*'
+      include: "apps/*"
     targetRevision: main
   destination:
     server: "https://kubernetes.default.svc"
