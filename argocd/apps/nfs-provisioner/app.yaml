@@ -13,7 +13,7 @@ spec:
         valuesFiles:
           - $values/argocd/files/nfs/values.yaml
         releaseName: nfs-subdir-external-provisioner
-    - repoURL: https://git.server.dortlii.dev/intra/homelab-files.git
+    - repoURL: git@git.server.dortlii.dev:intra/homelab-files.git
       targetRevision: main
       ref: values
   destination:
