@@ -27,3 +27,8 @@ spec:
         argocd.argoproj.io/managed-by: argocd
     syncOptions:
       - CreateNamespace=true
+  ignoreDifferences:
+    - group: ""
+      kind: Service
+      jsonPointers:
+        - /status
