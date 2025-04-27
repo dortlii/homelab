@@ -1,3 +1,6 @@
+# workarounds implemented:
+# - https://github.com/argoproj/argo-cd/issues/20178
+# - https://github.com/metallb/metallb/issues/1681
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -21,6 +24,17 @@ spec:
   destination:
     server: "https://kubernetes.default.svc"
     namespace: metallb-system
+  ignoreDifferences:
+    - group: "apiextensions.k8s.io"
+      kind: CustomResourceDefinition
+      name: bgppeers.metallb.io
+      jsonPointers:
+        - /spec/conversion/webhook/clientConfig/caBundle
+    - group: "apiextensions.k8s.io"
+      kind: CustomResourceDefinition
+      name: addresspools.metallb.io
+      jsonPointers:
+        - /spec/conversion/webhook/clientConfig/caBundle
   syncPolicy:
     automated:
       prune: true
@@ -33,4 +47,6 @@ spec:
         pod-security.kubernetes.io/audit: privileged
         pod-security.kubernetes.io/warn: privileged
     syncOptions:
+      - ServerSideApply=true
       - CreateNamespace=true
+      - RespectIgnoreDifferences=true
