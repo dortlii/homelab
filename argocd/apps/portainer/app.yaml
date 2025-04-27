@@ -7,7 +7,7 @@ spec:
   project: portainer
   source:
     path: argocd/files/portainer
-    repoURL: https://github.com/dortlii/homelab
+    repoURL: git@github.com:dortlii/homelab.git
     targetRevision: main
   destination:
     server: "https://kubernetes.default.svc"
