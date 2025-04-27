@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+spec:
+  project: cert-manager
+  sources:
+    - chart: cert-manager
+      repoURL: https://charts.jetstack.io
+      targetRevision: v1.17.2
+      helm:
+        valuesObject:
+          crds:
+            enabled: true
+            keep: true
+          dns01RecursiveNameservers: "1.1.1.1:53"
+          dns01RecursiveNameserversOnly: true
+        releaseName: cert-manager
+    - path: homelab-files/argocd/files/cert-manager
+      repoURL: git@github.com:dortlii/homelab.git
+      targetRevision: main
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: cert-manager
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        argocd.argoproj.io/managed-by: argocd
+    syncOptions:
+      - CreateNamespace=true
