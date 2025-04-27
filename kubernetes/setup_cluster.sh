@@ -1,11 +1,14 @@
 #!/bin/bash
 
 install_operators() {
-  echo "Installing cert manager operator"
-  cert-manager/install-operator.sh
+  echo "Installing metallb"
+  metallb/install.sh
 
-  echo "Installing argocd operator"
-  argocd/install-operator.sh
+  echo "Installing cert manager operator"
+  cert-manager/install.sh
+
+  echo "Installing argocd"
+  argocd/install.sh
 }
 
 # setup olm
