@@ -37,7 +37,7 @@ spec:
             enabled: true
             name: kubernetes-dashboard-cert
             secretName: kubernetes-dashboard-tls-secret
-            dnsNames: kubernetes-dashboard.apps.dortlii.dev
+            dnsNames: kubernetes-dashboard.apps.k8s.dortlii.dev
           issuerRef:
             name: acme-issuer
             kind: ClusterIssuer

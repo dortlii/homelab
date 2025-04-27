@@ -7,10 +7,10 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - portainer.apps.dortlii.dev
+        - portainer.apps.k8s.dortlii.dev
       secretName: portainer-tls-secret
   rules:
-    - host: portainer.apps.dortlii.dev
+    - host: portainer.apps.k8s.dortlii.dev
       http:
         paths:
           - path: /
