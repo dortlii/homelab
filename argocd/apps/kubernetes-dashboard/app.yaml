@@ -10,8 +10,8 @@ spec:
     server: https://kubernetes.default.svc
   project: kubernetes-dashboard
   sources:
-    - repoURL: https://github.com/dortlii/homelab
-      path: argocd/files/kubernetes-dashboard
+    - repoURL: git@github.com:dortlii/homelab.git
+      path: homelab-files/argocd/files/kubernetes-dashboard
       targetRevision: main
     - repoURL: https://kubernetes.github.io/dashboard/
       targetRevision: 7.12.0
