@@ -15,10 +15,6 @@ spec:
           speaker:
             frr:
               enabled: true
-          labels:
-            pod-security.kubernetes.io/enforce: privileged
-            pod-security.kubernetes.io/audit: privileged
-            pod-security.kubernetes.io/warn: privileged
     - repoURL: git@github.com:dortlii/homelab.git
       path: homelab-files/argocd/files/metallb
       targetRevision: main
@@ -32,5 +28,9 @@ spec:
     managedNamespaceMetadata:
       labels:
         argocd.argoproj.io/managed-by: argocd
+        pod-security.kubernetes.io/enforce: privileged
+        pod-security.kubernetes.io/enforce-version: latest
+        pod-security.kubernetes.io/audit: privileged
+        pod-security.kubernetes.io/warn: privileged
     syncOptions:
       - CreateNamespace=true
