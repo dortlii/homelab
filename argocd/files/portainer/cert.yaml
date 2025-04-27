@@ -5,7 +5,7 @@ metadata:
   namespace: portainer
 spec:
   dnsNames:
-  - portainer.apps.k8s.dortlii.dev
+  - portainer.apps.prd-1.k8s.dortlii.dev
   issuerRef:
     kind: ClusterIssuer
     name: acme-issuer
