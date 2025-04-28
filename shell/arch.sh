@@ -109,6 +109,7 @@ YAY_TOOLS=(
   "grimblast"
   "swappy"
   "libnotify"
+  "waypaper"
 )
 
 beauty_output
