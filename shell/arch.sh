@@ -105,7 +105,10 @@ YAY_TOOLS=(
   "zip"
   "edid-decode"
   "zed"
-  "rofi"
+  "rofi-wayland"
+  "grimblast"
+  "swappy"
+  "libnotify"
 )
 
 beauty_output
