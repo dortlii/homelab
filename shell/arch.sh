@@ -184,6 +184,6 @@ echo 'git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~
 echo 'git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting'
 echo "#-----------------------------------------------------------------------------------------------"
 echo "If you want hyprland ..."
-echo 'docs: https://github.com/mylinuxforwork/hyprland-starter?tab=readme-ov-file'
-echo 'bash <(curl -s https://raw.githubusercontent.com/mylinuxforwork/hyprland-starter/main/setup.sh)'
+echo 'docs: https://github.com/mylinuxforwork/dotfiles?tab=readme-ov-file'
+echo 'bash <(curl -s https://raw.githubusercontent.com/mylinuxforwork/dotfiles/main/setup-arch.sh)'
 echo "#-----------------------------------------------------------------------------------------------"
