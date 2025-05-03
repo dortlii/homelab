@@ -1,20 +1,55 @@
 #!/bin/bash
-yay -S brightnessctl
-yay -S hyprcursor
-yay -S swayidle swaylock
-yay -S vim
-yay -S hyprpaper
-yay -S waybar
-yay -S hyprland-git
-yay -S sddm-git
-yay -S kitty
-yay -S firefox
-yay -S rofi
-yay -S dunst pipewire wireplumber polkit-kde-agent
-yay -S qt5-wayland qt6-wayland
-yay -S xdg-desktop-portal-hyprland
-yay -S dolphin
-yay -S 1password
-yay -S stow
-yay -S neovim
-yay -S cliphist
+
+# =============================================================================
+# Script Name:    hyprland.sh
+# Description:    Sets up a hyprland installation for personal usage
+# Usage:          ./hyprland.sh
+# Author:         Fabian Dort <fabian@dortlii.dev>
+# Maintainer:     Fabian Dort <fabian@dortlii.dev>
+# Version:        1.0.0
+# License:        GNU GPLv3
+# Dependencies:
+#
+# History:
+#   Version 1.0.0 - Initial release
+# =============================================================================
+
+#-----------------------------------------
+# functions
+#-----------------------------------------
+beauty_output() {
+  echo "#-----------------------------------------------------------------------------------------------"
+}
+
+#-----------------------------------------
+# install tools with dnf
+#-----------------------------------------
+YAY_TOOLS=(
+  "cmake"
+  "meson"
+  "cpio"
+  "pkg-config"
+)
+
+beauty_output
+echo "installing all the yay tools ..."
+yay -Sq "${YAY_TOOLS[@]}"
+
+#-----------------------------------------
+# update hyprland plugins
+#-----------------------------------------
+beauty_output
+echo "updating hyprland plugin manager ..."
+hyprpm update -v
+
+hyprpm add https://github.com/hyprwm/hyprland-plugins
+
+#-----------------------------------------
+# update hyprland plugins
+#-----------------------------------------
+HYPRLAND_PLUGINS=(
+  "hyprexpo"
+)
+beauty_output
+echo "installing all the yay tools ..."
+hyprpm enable "${HYPRLAND_PLUGINS[@]}"
