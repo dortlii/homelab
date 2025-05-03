@@ -109,6 +109,8 @@ YAY_TOOLS=(
   "grimblast"
   "swappy"
   "libnotify"
+  "waypaper"
+  "hyprpolkitagent"
 )
 
 beauty_output
@@ -180,4 +182,8 @@ echo "#-------------------------------------------------------------------------
 echo "Install oh-my-zsh plugins ..."
 echo 'git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions'
 echo 'git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting'
+echo "#-----------------------------------------------------------------------------------------------"
+echo "If you want hyprland ..."
+echo 'docs: https://github.com/mylinuxforwork/dotfiles?tab=readme-ov-file'
+echo 'bash <(curl -s https://raw.githubusercontent.com/mylinuxforwork/dotfiles/main/setup-arch.sh)'
 echo "#-----------------------------------------------------------------------------------------------"
