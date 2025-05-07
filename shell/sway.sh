@@ -28,6 +28,8 @@ YAY_TOOLS=(
   "sway"
   "swaybg"
   "hyprland-polkit"
+  "grim"
+  "swappy"
 )
 
 beauty_output
