@@ -49,7 +49,6 @@ YAY_TOOLS=(
   "git-delta"
   "visual-studio-code-bin"
   "spotify"
-  # "nvidia-settings"
   "zen-browser-bin"
   "nvm"
   "oh-my-posh"
