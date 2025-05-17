@@ -30,6 +30,10 @@ YAY_TOOLS=(
   "hyprland-polkit"
   "grim"
   "swappy"
+  "wlogout"
+  "swaylock"
+  "waybar"
+  "rofi-wayland"
 )
 
 beauty_output
