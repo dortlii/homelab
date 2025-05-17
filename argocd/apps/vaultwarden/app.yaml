@@ -7,7 +7,7 @@ spec:
   project: vaultwarden
   sources:
     - chart: vaultwarden
-      repoURL: https://guerzon.github.io/vaultwardenx
+      repoURL: https://guerzon.github.io/vaultwarden
       targetRevision: 0.31.8
       helm:
         valuesObject:
