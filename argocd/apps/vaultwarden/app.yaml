@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vaultwarden
+  namespace: argocd
+spec:
+  project: vaultwarden
+  sources:
+    - chart: vaultwarden
+      repoURL: https://guerzon.github.io/vaultwardenx
+      targetRevision: 0.31.8
+      helm:
+        valuesObject:
+          domain: "https://vw.dortlii.dev"
+          signupsAllowed: false
+          invitationsAllowed: false
+          adminToken:
+            existingSecret: admin-token
+            existingSecretKey: token
+          timeZone: "Europe/Zurich"
+          resources:
+            limits:
+              cpu: 300m
+              memory: 1Gi
+            requests:
+              cpu: 50m
+              memory: 256Mi
+        releaseName: vaultwarden
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: vaultwarden
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        argocd.argoproj.io/managed-by: argocd
+    syncOptions:
+      - CreateNamespace=true
