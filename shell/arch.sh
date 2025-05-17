@@ -110,6 +110,7 @@ YAY_TOOLS=(
   "libnotify"
   "waypaper"
   "hyprpolkitagent"
+  "oras"
 )
 
 beauty_output
