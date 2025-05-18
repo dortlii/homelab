@@ -13,7 +13,7 @@ spec:
         releaseName: argocd-ingress
         valuesObject:
           global:
-            namespace: argocd-ingress
+            namespace: argocd
           cert:
             enabled: true
             name: argocd-ingress-cert
