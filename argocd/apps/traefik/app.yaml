@@ -39,7 +39,7 @@ spec:
             enabled: true
             name: traefik-cert
             secretName: traefik-tls-secret
-            dnsNames: vw.dortlii.dev
+            dnsNames: traefik.apps.prd-1.k8s.dortlii.dev
           issuerRef:
             name: acme-issuer
             kind: ClusterIssuer
