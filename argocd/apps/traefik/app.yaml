@@ -28,7 +28,7 @@ spec:
                 enabled: true
           logs:
             general:
-              level: DEBUG
+              level: INFO
           persistence:
             enabled: true
             size: 1Gi
