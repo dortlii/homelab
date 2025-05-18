@@ -18,6 +18,11 @@ spec:
           spec:
             type: LoadBalancer
             externalTrafficPolicy: Local
+        ports:
+          web: null
+          websecure:
+            tls:
+              enabled: true
         persistence:
           enabled: true
           size: 1Gi
