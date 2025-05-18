@@ -34,6 +34,7 @@ YAY_TOOLS=(
   "swaylock"
   "waybar"
   "rofi-wayland"
+  "bluetuith"
 )
 
 beauty_output
