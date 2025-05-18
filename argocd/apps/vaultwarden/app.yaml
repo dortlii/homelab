@@ -38,6 +38,17 @@ spec:
               class: "nfs"
               path: "/files"
               accessMode: "ReadWriteOnce"
+          smtp:
+            existingSecret: smtp-creds
+            host: "smtp.mailbox.org"
+            security: "force_tls"
+            port: 465
+            from: "vault@dortlii.org"
+            fromName: "vaultwarden"
+            username:
+              existingSecretKey: SMTP_USERNAME
+            password:
+              existingSecretKey: SMTP_PASSWORD
         releaseName: vaultwarden
     - repoURL: "https://git.server.dortlii.dev/api/v4/projects/6/packages/helm/stable"
       targetRevision: 0.0.4
