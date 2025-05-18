@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-ingress
+  namespace: argocd
+spec:
+  project: argocd-ingress
+  sources:
+    - repoURL: 'https://git.server.dortlii.dev/api/v4/projects/6/packages/helm/stable'
+      targetRevision: 0.0.4
+      chart: argocd-ingress
+      helm:
+        releaseName: argocd-ingress
+        valuesObject:
+          global:
+            namespace: argocd-ingress
+          cert:
+            enabled: true
+            name: argocd-ingress-cert
+            secretName: argocd-ingress-tls-secret
+            dnsNames: argocd.apps.prd-1.k8s.dortlii.dev
+          issuerRef:
+            name: acme-issuer
+            kind: ClusterIssuer
+          ingress:
+            enabled: true
+            name: argocd-ingress
+            path: /
+            pathType: Prefix
+            backend:
+              port: 80
+              service: argocd-server
+            serversTransports:
+              ignorecert:
+                insecureSkipVerify: false
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: argocd-ingress
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        argocd.argoproj.io/managed-by: argocd
+    syncOptions:
+      - CreateNamespace=true
