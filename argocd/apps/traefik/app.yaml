@@ -20,7 +20,7 @@ spec:
               externalTrafficPolicy: Local
           dashboard:
             enabled: true
-            ingressRoute: false
+            ingressRoute: true
           ports:
             web: null
             websecure:
@@ -33,33 +33,6 @@ spec:
             enabled: true
             size: 1Gi
             accessMode: ReadWriteOnce
-    - repoURL: 'https://git.server.dortlii.dev/api/v4/projects/6/packages/helm/stable'
-      targetRevision: 0.0.4
-      chart: traefik-ingress
-      helm:
-        releaseName: traefik-ingress
-        valuesObject:
-          global:
-            namespace: traefik
-          cert:
-            enabled: true
-            name: traefik-cert
-            secretName: traefik-tls-secret
-            dnsNames: traefik.apps.prd-1.k8s.dortlii.dev
-          issuerRef:
-            name: acme-issuer
-            kind: ClusterIssuer
-          ingress:
-            enabled: true
-            name: traefik-ingress
-            path: /
-            pathType: Prefix
-            backend:
-              port: 80
-              service: traefik
-            serversTransports:
-              ignorecert:
-                insecureSkipVerify: false
   destination:
     server: "https://kubernetes.default.svc"
     namespace: traefik
