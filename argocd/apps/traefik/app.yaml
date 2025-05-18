@@ -18,6 +18,9 @@ spec:
             spec:
               type: LoadBalancer
               externalTrafficPolicy: Local
+          dashboard:
+            enabled: true
+            ingressRoute: false
           ports:
             web: null
             websecure:
