@@ -26,6 +26,9 @@ spec:
             websecure:
               tls:
                 enabled: true
+          logs:
+            general:
+              level: DEBUG
           persistence:
             enabled: true
             size: 1Gi
