@@ -26,6 +26,33 @@ spec:
               cpu: 50m
               memory: 256Mi
         releaseName: vaultwarden
+    - repoURL: 'https://git.server.dortlii.dev/api/v4/projects/6/packages/helm/stable'
+      targetRevision: 0.0.4
+      chart: traefik-ingress
+      helm:
+        releaseName: vaultwarden-ingress
+        valuesObject:
+          global:
+            namespace: vaultwarden
+          cert:
+            enabled: true
+            name: vaultwarden-cert
+            secretName: vaultwarden-tls-secret
+            dnsNames: vw.dortlii.dev
+          issuerRef:
+            name: acme-issuer
+            kind: ClusterIssuer
+          ingress:
+            enabled: true
+            name: vaultwarden-ingress
+            path: /
+            pathType: Prefix
+            backend:
+              port: 80
+              service: vaultwarden
+            serversTransports:
+              ignorecert:
+                insecureSkipVerify: false
   destination:
     server: "https://kubernetes.default.svc"
     namespace: vaultwarden
