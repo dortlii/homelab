@@ -19,9 +19,6 @@ spec:
             type: LoadBalancer
             externalTrafficPolicy: Local
         ports:
-          web:
-            redirectTo:
-              port: websecure  # Redirect HTTP to HTTPS
           websecure:
             tls:
               enabled: true
