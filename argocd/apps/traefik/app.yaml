@@ -15,6 +15,9 @@ spec:
         persistence:
           enabled: true
           size: 1Gi
+        ingressRoute:
+          dashboard:
+            enabled: true
         providers:
           kubernetesIngress:
             publishedService:
